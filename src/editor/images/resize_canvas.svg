@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+
+    <g class="layer">
+        <rect fill="none" height="40" id="svg_5" stroke="#f9ba00" stroke-width="0.6" transform="matrix(1 0 0 1 0 0)"
+            width="40" x="5" y="5" />
+        <rect fill="#ffffff" height="26" id="svg_6" stroke="#f9ba00" stroke-width="0.6" width="22" x="22.94" y="19" />
+        <g id="svg_9" transform="matrix(1 0 0 1 0 0)">
+            <line fill="none" id="svg_7" stroke="#f9ba00" stroke-width="3" x1="6.2" x2="6.2" y1="17" y2="5.2" />
+            <line fill="none" id="svg_8" points="null" stroke="#f9ba00" stroke-width="3" x1="17.38" x2="5.58" y1="6.25"
+                y2="6.25" />
+        </g>
+        <g id="svg_10" transform="rotate(-180 38.4836 38.9832)">
+            <line fill="none" id="svg_11" stroke="#f9ba00" stroke-width="3" x1="33.2" x2="33.2" y1="44.88" y2="33.08" />
+            <line fill="none" id="svg_12" points="null" stroke="#f9ba00" stroke-width="3" x1="44.38" x2="32.58"
+                y1="34.13" y2="34.13" />
+        </g>
+    </g>
+</svg>

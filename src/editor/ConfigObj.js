@@ -184,7 +184,8 @@ export default class ConfigObj {
       'ext-shapes',
       'ext-polystar',
       'ext-storage',
-      'ext-opensave'
+      'ext-opensave',
+      'ext-resize_canvas',
     ]
     this.curConfig = {
       // We do not put on defaultConfig to simplify object copying
