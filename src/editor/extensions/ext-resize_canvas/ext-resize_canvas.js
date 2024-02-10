@@ -5,7 +5,7 @@ export default {
     async init() {
         const svgEditor = this
         const { svgCanvas } = svgEditor;
-        const { $id, $click, assignAttributes, svgContent } = svgCanvas;
+        const { $id, $click, svgContent, setResolution } = svgCanvas;
         const svgdoc = $id('svgcanvas');
         const canvasBg = $id('canvasBackground');
 
@@ -20,17 +20,17 @@ export default {
         resizeBox.style.left = svgContent.getAttribute('x') + 'px'
         resizeBox.style.position = 'absolute'
         resizeBox.style.border = '1px solid blue'
+        resizeBox.style.background = 'rgba(1,1,1,0.4)'
 
         const rightHandle = document.createElement('div');
         rightHandle.style.width = '4px';
         rightHandle.style.background = 'blue';
         rightHandle.style.position = 'absolute';
         rightHandle.style.right = '0'
-        rightHandle.style.top = Math.min(22, 0.1 * height) + 'px'
-        rightHandle.style.bottom = Math.min(22, 0.1 * height) + 'px'
+        rightHandle.style.top = '4px'
+        rightHandle.style.bottom = '4px'
         rightHandle.style.cursor = 'e-resize';
         resizeBox.appendChild(rightHandle);
-
 
         svgdoc.appendChild(resizeBox)
 
@@ -78,6 +78,13 @@ export default {
         }
 
         rightHandle.addEventListener('mousedown', (e) => handleResize(e, 'right'))
+
+        const confirmChanges = () => {
+          const {w, h} = svgCanvas.getResolution();
+          const newW = w + dX
+          const newY = h + dY
+          setResolution(newW, newY)
+        }
         
         return {
             name,
@@ -97,28 +104,39 @@ export default {
                     const currentMode = svgCanvas.getMode()
 
                     if (currentMode === name) {
-                        button.removeAttribute('pressed')
-                        button.setAttribute('title', 'Resize canvas')
                         svgCanvas.setMode('select')
                         return
                     }
 
-                    button.setAttribute('pressed', true)
-                    button.setAttribute('title', 'Cancel resize canvas mode')
                     svgCanvas.setMode(name)
                 })
 
                 // Shows/hides resize box on mode change
                 document.addEventListener('modeChange', (e) => {
-                  //#TODO: "Pressed" attribute change if mode was changed not by click
                     const mode = svgCanvas.getMode()
 
                     if (mode === name) {
+                        button.setAttribute('pressed', true)
+                        button.setAttribute('title', 'Cancel resize canvas mode')
                         showResizeBox()
                         return
                     }
 
+                    button.removeAttribute('pressed')
+                    button.setAttribute('title', 'Resize canvas')
+
                     hideResizeBox()
+                })
+
+                document.addEventListener('keydown', e => {
+                  if (svgCanvas.getMode() !== name) return
+
+                  if (e.key === 'Enter') {
+                    confirmChanges()
+                    svgCanvas.setMode('select')
+                    dX = 0
+                    dY = 0
+                  }
                 })
             }
         }
