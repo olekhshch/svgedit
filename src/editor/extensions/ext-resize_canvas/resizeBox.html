@@ -1,0 +1,25 @@
+<style>
+    #resize-box {
+        position: absolute;
+        border: 1px solid var(--orange-color);
+        background: rgba(32, 33, 34, 0.4);
+        background-size: 33.3% 33.3%;
+        background-image: linear-gradient(var(--orange-color) 0.5px, transparent 0.5px, transparent calc(100% - 0.5px), var(--orange-color) calc(100% - 0.5px)), linear-gradient(90deg, var(--orange-color) 0.5px, transparent 0.5px, transparent calc(100% - 0.5px), var(--orange-color) calc(100% - 0.5px));
+    }
+
+    .side-handle {
+        position: absolute;
+        background-color: var(--orange-color);
+    }
+
+    #right-handle {
+        width: 4px;
+        right: 0;
+        top: 12px;
+        bottom: 12px;
+        cursor: e-resize;
+    }
+</style>
+<div id="resize-box">
+    <div id="right-handle" class="side-handle"></div>
+</div>

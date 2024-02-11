@@ -1,3 +1,6 @@
+import resizeBoxHTML from './resizeBox.html'
+import resizeDialogHTML from './resizeDialog.html'
+
 const name = 'resize_canvas'
 
 export default {
@@ -6,33 +9,43 @@ export default {
         const svgEditor = this
         const { svgCanvas } = svgEditor;
         const { $id, $click, svgContent, setResolution } = svgCanvas;
-        const svgdoc = $id('svgcanvas');
+        const svgContainer = $id('svgcanvas');
         const canvasBg = $id('canvasBackground');
+
+        const template = document.createElement('template')
+        template.innerHTML = resizeBoxHTML
 
         let dX = 0;
         let dY = 0;
         let width = Number(canvasBg.getAttribute('width')) ?? 0;
         let height = Number(canvasBg.getAttribute('height')) ?? 0;
 
-        const resizeBox = document.createElement('div')
+        //inserting shadow root with the resize box and it's handles into svgcanvas
+        const boxContainer = document.createElement('div');
+        const _shadowRootBox = boxContainer.attachShadow({ mode: 'open' })
+        _shadowRootBox.append(template.content);
+        svgContainer.appendChild(boxContainer)
+        const resizeBox = _shadowRootBox.getElementById('resize-box');
         resizeBox.style.display = 'none'
         resizeBox.style.top = svgContent.getAttribute('y') + 'px'
         resizeBox.style.left = svgContent.getAttribute('x') + 'px'
-        resizeBox.style.position = 'absolute'
-        resizeBox.style.border = '1px solid blue'
-        resizeBox.style.background = 'rgba(1,1,1,0.4)'
+        
 
-        const rightHandle = document.createElement('div');
-        rightHandle.style.width = '4px';
-        rightHandle.style.background = 'blue';
-        rightHandle.style.position = 'absolute';
-        rightHandle.style.right = '0'
-        rightHandle.style.top = '4px'
-        rightHandle.style.bottom = '4px'
-        rightHandle.style.cursor = 'e-resize';
-        resizeBox.appendChild(rightHandle);
+        // const resizeBox = document.createElement('div')
+        // resizeBox.style.position = 'absolute'
+        // resizeBox.style.border = '1px solid var(--orange-color)'
+        // resizeBox.style.background = 'rgba(1,1,1,0.3)'
+        // resizeBox.style.backgroundSize = '33.3% 33.3%'
+        // resizeBox.style.backgroundImage = 'linear-gradient(var(--orange-color) 0.5px, transparent 0.5px, transparent calc(100% - 0.5px), var(--orange-color) calc(100% - 0.5px)), linear-gradient(90deg, var(--orange-color) 0.5px, transparent 0.5px, transparent calc(100% - 0.5px), var(--orange-color) calc(100% - 0.5px))'
 
-        svgdoc.appendChild(resizeBox)
+        const rightHandle = _shadowRootBox.getElementById('right-handle')
+        // rightHandle.style.width = '4px';
+        // rightHandle.style.background = 'var(--orange-color)';
+        // rightHandle.style.position = 'absolute';
+        // rightHandle.style.right = '0'
+        // rightHandle.style.top = '4px'
+        // rightHandle.style.bottom = '4px'
+        // rightHandle.style.cursor = 'e-resize';
 
         const drawResizeBox = () => {
           const zoom = svgCanvas.getZoom()
