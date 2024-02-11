@@ -1,7 +1,9 @@
 <style>
     #resize-dialog {
         padding: 2px 6px;
-        background-color: var(--icon-bg-color-hover);
+        background-color: var(--main-bg-color);
+        border: 1px solid var(--orange-color);
+        border-radius: 8px;
         position: absolute;
         top: 120px;
         left: 100px;
@@ -9,15 +11,63 @@
         flex-direction: column;
         color: white;
     }
+
+    #dialog-head {
+        margin-bottom: 2px;
+        margin-right: auto;
+        font-size: 1.2em;
+        border-bottom: 1px solid var(--canvas-bg-color);
+        user-select: none;
+        cursor: grab;
+    }
+
+    input {
+        width: 80px;
+        margin-left: auto;
+    }
+
+    #btn-container {
+        margin: 4px;
+    }
+
+    button {
+        width: 48px;
+        background-color: transparent;
+        border: 1px solid var(--main-bg-color);
+        border-radius: 4px;
+        color: white;
+        user-select: none;
+    }
+
+    button:hover {
+        color: var(--orange-color);
+        border-color: var(--orange-color);
+        cursor: pointer;
+    }
+
+    .input-label {
+        display: flex;
+        align-items: center;
+    }
+
+    /* label {
+        display: block;
+    } */
 </style>
 <div id="resize-dialog">
     <div id="dialog-head"><img src="./images/resize_canvas.svg" alt="Resize canvas" width="16" /> <span>Resize
             canvas</span></div>
-    <label> New width: <input name="width" /></label>
-
-    <div>
-        <button>OK</button>
-        <button>Apply</button>
-        <button>Close</button>
+    <div class="input-label">
+        <label for="width"> New width: </label>
+        <input name="width" id="width" type="number" />
+    </div>
+    <div class="input-label">
+        <label> New height: </label>
+        <input id="height" type="number" />
+    </div>
+    <div id="btn-container">
+        <button id="ok-btn">OK</button>
+        <button id="apply-btn">Apply</button>
+        <button id="close-btn">Close</button>
     </div>
 </div>
